@@ -7,23 +7,22 @@ import (
 )
 
 type Client struct {
-	db *sqlx.DB
+	connection *sqlx.DB
 }
 
 func (c *Client) Disconnect() {
-	c.db.Close()
+	c.connection.Close()
 }
 
 func (c *Client) IsConnected() bool {
-	err := c.db.Ping()
+	err := c.connection.Ping()
 	return err == nil
 }
 
 var lock = &sync.Mutex{}
 var client *Client
 
-// GetInstance @TODO remove Public
-func GetInstance() *Client {
+func getInstance() *Client {
 	if client != nil {
 		return client
 	}
@@ -36,7 +35,7 @@ func GetInstance() *Client {
 	}
 
 	client = &Client{
-		db: db,
+		connection: db,
 	}
 
 	return client

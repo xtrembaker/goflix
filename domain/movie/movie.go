@@ -2,15 +2,14 @@ package movie
 
 import (
 	"fmt"
-	"time"
 )
 
 type Movie struct {
-	ID          int64     `db:"id"`
-	Title       string    `db:"title"`
-	ReleaseDate time.Time `db:"release_date"`
-	Duration    int       `db:"duration"`
-	TrailerUrl  string    `db:"trailer_url"`
+	ID          int64  `db:"id"`
+	Title       string `db:"title"`
+	ReleaseDate string `db:"release_date"`
+	Duration    int    `db:"duration"`
+	TrailerUrl  string `db:"trailer_url"`
 }
 
 func (m Movie) String() string {

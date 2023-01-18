@@ -15,6 +15,6 @@ CREATE TABLE IF NOT EXISTS movie
 
 // @TODO That would be great to be able to launch that in CLI (add a flag to do so)
 func ExecMigration(c *Client) {
-	c.db.MustExec(schema)
+	c.connection.MustExec(schema)
 	log.Println("Migration executed")
 }

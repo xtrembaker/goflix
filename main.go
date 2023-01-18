@@ -6,11 +6,8 @@ import (
 )
 
 func main() {
-	client := sqlite.GetInstance()
-	fmt.Printf("IsConnected=%v\n", client.IsConnected())
-
-	client.Disconnect()
-	fmt.Printf("IsConnected=%v\n", client.IsConnected())
+	var movieRepository = sqlite.MovieRepositoryFactory()
+	fmt.Printf("movies=%v", movieRepository.List())
 
 	fmt.Println("Seems working")
 }
