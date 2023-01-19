@@ -34,6 +34,10 @@ func (r Router) ServeHttp() http.Handler {
 			MovieRepository: sqlite.MovieRepositoryFactory(),
 		}.CreateMovie(),
 	).Methods("POST")
+	router.HandleFunc(
+		"/api/login",
+		controller.LoginController{}.Login(),
+	).Methods("POST")
 
 	// add middleware
 	return logRequestMiddleware(router.ServeHTTP)
