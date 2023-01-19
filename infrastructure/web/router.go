@@ -23,7 +23,8 @@ func (r Router) ServeHttp() http.Handler {
 		}.MovieList(),
 	).Methods("GET")
 
-	return router
+	// add middleware
+	return logRequestMiddleware(router.ServeHTTP)
 }
 
 func NewRouter() *Router {
