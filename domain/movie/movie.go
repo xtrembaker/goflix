@@ -6,7 +6,7 @@ import (
 
 type Movie struct {
 	ID          int64  `db:"id"`
-	Title       string `db:"title"`
+	Title       Title  `db:"title"`
 	ReleaseDate string `db:"release_date"`
 	Duration    int    `db:"duration"`
 	TrailerUrl  string `db:"trailer_url"`

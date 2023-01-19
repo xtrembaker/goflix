@@ -18,16 +18,16 @@ type MovieViewModel struct {
 func mapMovieToViewModel(m *movie.Movie) MovieViewModel {
 	return MovieViewModel{
 		ID:          m.ID,
-		Title:       m.Title,
+		Title:       m.Title.GetValue(),
 		ReleaseDate: m.ReleaseDate,
 		Duration:    m.Duration,
 		TrailerUrl:  m.TrailerUrl,
 	}
 }
 
-func JsonResponse(w http.ResponseWriter, data interface{}) {
+func JsonResponse(w http.ResponseWriter, statusCode int, data interface{}) {
 	w.Header().Add("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(statusCode)
 	err := json.NewEncoder(w).Encode(data)
 	if err != nil {
 		log.Fatal(err)

@@ -26,6 +26,6 @@ func (c ShowMovieController) ShowMovie() http.HandlerFunc {
 			fmt.Fprint(w, http.StatusText(http.StatusNotFound))
 			return
 		}
-		JsonResponse(w, mapMovieToViewModel(m))
+		JsonResponse(w, http.StatusOK, mapMovieToViewModel(m))
 	}
 }

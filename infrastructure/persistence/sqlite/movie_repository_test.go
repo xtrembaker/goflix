@@ -33,7 +33,20 @@ func TestGetMethodReturnMovieWhenItExists(t *testing.T) {
 	movieRepository := &MovieRepository{testingDbConnection}
 	m, err := movieRepository.Get(1)
 	assert.Nil(t, err, "Error should be nil")
-	assert.Equal(t, m, &movie.Movie{1, "titre", "2018-10-18", 240, "https://www.youtube.com"})
+	assert.Equal(t, m, &movie.Movie{1, movie.NewTitle("titre"), "2018-10-18", 240, "https://www.youtube.com"})
+}
+
+func TestSaveMethodRecordMovieInDatabaseAndFillId(t *testing.T) {
+	movieRepository := &MovieRepository{testingDbConnection}
+	m := &movie.Movie{
+		ID:          0,
+		Title:       movie.NewTitle("Avatar: The way of Water"),
+		ReleaseDate: "2022-12-25",
+		Duration:    192,
+		TrailerUrl:  "https://www.imdb.com/title/tt1630029/?ref_=nv_sr_srsg_0",
+	}
+	movieRepository.Save(m)
+	assert.Greaterf(t, m.ID, int64(0), "ID should be greater than 0")
 }
 
 func connectTestingDb() {

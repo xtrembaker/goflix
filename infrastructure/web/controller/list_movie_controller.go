@@ -16,6 +16,6 @@ func (c MovieListController) MovieList() http.HandlerFunc {
 		for i, movieModel := range movies {
 			resp[i] = mapMovieToViewModel(movieModel)
 		}
-		JsonResponse(w, resp)
+		JsonResponse(w, http.StatusOK, resp)
 	}
 }
