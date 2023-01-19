@@ -22,6 +22,12 @@ func (r Router) ServeHttp() http.Handler {
 			MovieRepository: sqlite.MovieRepositoryFactory(),
 		}.MovieList(),
 	).Methods("GET")
+	router.HandleFunc(
+		"/api/movie/{id:[0-9]+}",
+		controller.ShowMovieController{
+			MovieRepository: sqlite.MovieRepositoryFactory(),
+		}.ShowMovie(),
+	).Methods("GET")
 
 	// add middleware
 	return logRequestMiddleware(router.ServeHTTP)

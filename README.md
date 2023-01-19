@@ -8,3 +8,7 @@ Catalogue de film (clin d’œil à Netflix ;))
 - Création de film
 - Récupération des films existants
 - Les films sont stockés dans une base de données
+
+# Run test
+
+`go test ./...`

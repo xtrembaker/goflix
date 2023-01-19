@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/xtrembaker/goflix/infrastructure/persistence/sqlite"
 	"github.com/xtrembaker/goflix/infrastructure/web"
 	"log"
 	"net/http"
@@ -19,4 +20,6 @@ func startWebServer() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	defer sqlite.Disconnect()
 }
