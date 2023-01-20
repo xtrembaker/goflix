@@ -24,12 +24,12 @@ func TestMain(m *testing.M) {
 func TestGetMethodReturnsEntityNotFoundWhenMovieDoesNotExists(t *testing.T) {
 	movieRepository := &MovieRepository{testingDbConnection}
 	m, err := movieRepository.Get(1)
-	assert.Equal(t, err, errors.New(domain.EntityNotFound))
+	assert.Equal(t, errors.New(domain.EntityNotFound), err)
 	assert.Nil(t, m, "Movie should not have been found")
 }
 
 func TestGetMethodReturnMovieWhenItExists(t *testing.T) {
-	insertRecord("titre", "2018-10-18", 240, "https://www.youtube.com")
+	insertMovieRecord("titre", "2018-10-18", 240, "https://www.youtube.com")
 	movieRepository := &MovieRepository{testingDbConnection}
 	m, err := movieRepository.Get(1)
 	assert.Nil(t, err, "Error should be nil")
@@ -59,10 +59,11 @@ func connectTestingDb() {
 
 func cleanTestingDB() {
 	testingDbConnection.MustExec("DROP TABLE movie")
+	testingDbConnection.MustExec("DROP TABLE user")
 	testingDbConnection.Close()
 }
 
-func insertRecord(title string, releaseDate string, duration int, trailerUrl string) {
+func insertMovieRecord(title string, releaseDate string, duration int, trailerUrl string) {
 	testingDbConnection.MustExec(
 		"INSERT INTO movie (title, release_date, duration, trailer_url) VALUES ($1, $2, $3, $4)",
 		title,

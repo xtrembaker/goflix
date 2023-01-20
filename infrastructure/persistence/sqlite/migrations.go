@@ -13,7 +13,13 @@ CREATE TABLE IF NOT EXISTS movie
 	release_date TEXT,
 	duration INTEGER,
 	trailer_url TEXT
-)
+);
+CREATE TABLE IF NOT EXISTS user
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT,
+    password TEXT
+);
 `
 
 // @TODO That would be great to be able to launch that in CLI (add a flag to do so)

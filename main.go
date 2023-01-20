@@ -8,6 +8,10 @@ import (
 	"net/http"
 )
 
+func init() {
+	sqlite.ExecMigration(sqlite.Connect())
+}
+
 func main() {
 	startWebServer()
 

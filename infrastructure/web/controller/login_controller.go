@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/xtrembaker/goflix/domain/user"
 	"log"
 	"net/http"
 	"time"
@@ -12,6 +13,7 @@ import (
 const JWT_PRIVATE_KEY = "training.go"
 
 type LoginController struct {
+	UserRepository user.UserRepository
 }
 
 type LoginPayload struct {
@@ -34,15 +36,15 @@ func (c LoginController) Login() http.HandlerFunc {
 			return
 		}
 
-		if payload.Username != "gopher" || payload.Password != "rocks" {
-			// invalid credentials
+		u, notfound := c.UserRepository.FindByUsernameAndPassword(payload.Username, payload.Password)
+		if notfound != nil {
 			fmt.Fprintf(w, "Invalid credentials")
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
 
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-			"username": payload.Username,
+			"username": u.Username,
 			"exp":      time.Now().Add(time.Hour * time.Duration(1)).Unix(),
 			"iat":      time.Now().Unix(),
 		})

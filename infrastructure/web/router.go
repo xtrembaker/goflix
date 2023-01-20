@@ -42,7 +42,9 @@ func (r Router) ServeHttp() http.Handler {
 	).Methods("POST")
 	router.HandleFunc(
 		"/api/login",
-		controller.LoginController{}.Login(),
+		controller.LoginController{
+			UserRepository: sqlite.UserRepositoryFactory(),
+		}.Login(),
 	).Methods("POST")
 
 	// add middleware
